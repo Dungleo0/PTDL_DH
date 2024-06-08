@@ -1,0 +1,44 @@
+---
+title: "Bai 12"
+author: "Duong Duc Vuong"
+date: "2023-11-02"
+output: html_document
+---
+
+**Bài 12**
+```{r}
+List1 = rep(2:10,each = 4)
+List2 = rep(c("J","Q","K","A") , each=4 )
+PlayingCards = c(List1,List2)
+test = sample (PlayingCards , 5 , replace = TRUE,)
+```
+Mẫu ban đầu
+```{r}
+test
+```
+
+```{r}
+# Hàm kiểm tra cặp đôi trong mẫu
+CheckDouble = function(test){
+  for (i in 1:4){
+    for (j in (i+1):5){
+      if (test[i] == test[j]){
+        return (TRUE)
+      }
+    }
+  }
+  return (FALSE)
+}
+```
+
+Nếu trong mẫu chưa có cặp đôi thì tiếp tục thử cho đến khi có
+```{r}
+if(CheckDouble(test) == TRUE){
+  print ( "Trong mau da co cap doi")
+}else{
+  while (CheckDouble(test) == FALSE){
+  test = sample (PlayingCards , 5 , replace = TRUE,)
+  }
+  test
+}
+```

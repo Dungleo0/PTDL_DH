@@ -1,0 +1,41 @@
+# Bài10
+```{r}
+
+##Bài 10. Tung một con dong xu 50lần. Mô phỏng phép thử và đếm số lần xuất hiện mặt sấp ngửa .
+set.seed(1)
+PhanTU <- sample(c("S","N"),50, replace = TRUE)
+PhanTU
+
+
+
+# Mô phỏng phép thử và đếm số mặt sấp
+so_mat_sap <- 0
+
+for (i in 1:length(PhanTU)) {
+  # Tung đồng xu (0: mặt sấp, 1: mặt ngửa)
+  
+
+  if (PhanTU[i] == "S") {
+    so_mat_sap <- so_mat_sap + 1
+  }
+}
+
+# In kết quả
+print(so_mat_sap)
+```
+
+# Bài11
+```{r}
+##Bài 11. Tung một con xúc xắc 100 lần. Mô phỏng phép thử và đếm số lần xuất hiện mặt 6 chấm.
+set.seed(1)
+PhanTU <- sample(c(1,2,3,4,5,6), 100, replace = TRUE)
+PhanTU
+so_mat_6 <-0
+for (i in 1:length(PhanTU)){
+  if (PhanTU[i]==6){
+    so_mat_6 <- so_mat_6 +1
+  }
+}
+print(so_mat_6)
+
+```

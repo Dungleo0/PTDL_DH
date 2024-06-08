@@ -1,0 +1,54 @@
+---
+title: "Untitled1"
+output: html_document
+date: "2023-11-02"
+---
+
+
+
+
+```{r}
+##Bài 5
+## Cho biết dữ liệu trong từng cột được đo bằng thang đo nào
+setwd("E:/PTDL/Week6")
+load(file =  "HocSinh.rda")
+View(DL)
+#Cột giới tính là thang đo định danh
+#Cột lớp là thang đo định danh
+#Cột tuổi là thang đo tỉ lệ
+#Cột nơi ở là thang đo định danh
+#Cột học lực,thể thao, hình thức thuộc thang đo thứ bậc
+##Cho biết tập dữ liệu này bao nhiêu cột, bao nhiêu dòng
+dim(DL)
+## Lấy ra dữ liệu cột thứ 3
+DL[,3]
+##Lấy ra toàn bộ dữ liệu ở dòng thứ 10
+DL[10,]
+##Tính số học sinh nữ, nam
+nrow(subset(DL,GioiTinh == "Nu"))
+nrow(subset(DL,GioiTinh == "Nam"))
+##Tỉnh tỉ lệ học sinh có mức độ yêu thích thể thao là 4. Tính tỉ lệ này trong nhóm học sinh nam, nữ
+#Tỉ lệ học sinh có mức độ yêu thích là 4
+stu1 = nrow(subset(DL,TheThao == 4))
+pctg1 = stu1 * 100 / nrow(DL)
+pctg1
+#Tỉ lệ học sinh nam có mức độ yêu thích là 4
+stu2 = nrow(subset(DL,TheThao == 4 & GioiTinh == "Nam"))
+pctg2 = stu2 * 100 / nrow(subset(DL,GioiTinh == "Nam"))
+pctg2
+#Tỉ lệ học sinh nữ có mức độ yêu thích là 4
+stu3 = nrow(subset(DL,TheThao == 4 & GioiTinh == "Nu"))
+pctg3 = stu3 * 100 / nrow(subset(DL,GioiTinh == "Nu"))
+pctg3
+```
+
+```{r}
+##Bài 6: Chọn ngẫu nhiên 50 học sinh và lấy ra tất cả thông tin về 50 người đó. Lưu dữ liệu dưới dạng .rda
+setwd("E:/PTDL/Week6")
+randomNum = sample(nrow(DL),50)
+hocsinh = DL[randomNum,]
+save(hocsinh, file = "hocsinhngaunhien.rda")
+
+```
+
+

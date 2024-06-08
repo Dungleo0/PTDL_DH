@@ -1,0 +1,24 @@
+---
+title: "Bài 8 + Bài 9"
+author: "thúi"
+date: "2023-11-03"
+output: html_document
+---
+
+
+#bai8. xác định loại thang đo  
+      a) Thang đo tỉ lệ
+      b) Thang đo tỉ lệ
+      c) Thang đo thứ bậc
+      d) Thang đo định danh
+      e) Thang đo tỉ lệ
+      f) Thang đo tỉ lệ
+      g) Thang đo định danh
+      h) Thang đo tỉ lệ
+      i) Thang đo tỉ lệ
+      
+      
+#bai9.chọn ngẫu nhiên 5 người từ danh sách gồm 40 người
+```{r}
+sample(1:40,5)
+```

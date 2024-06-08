@@ -1,0 +1,79 @@
+---
+title: "Bai 4 + Bai 7"
+author: "Dang Tung Anh"
+date: "2023-11-02"
+output: html_document
+---
+
+***Bai4***
+```{r}
+ThuTu <- c(1,2,3,4,5,6,7,8)
+Luong <- c(6.0,5.0,4.5,3.8,8.0,12.0,4.0,5.0)
+GioiTinh <- c("Nam", "Nu", "Nam", "Nu", "Nu", "Nam", "Nam", "Nu")
+TotNghiep <- c("K","K","TB","K","G","G","TB","TB")
+Tuoi <- c(22,25,23,22,22,23,22,24)
+SinhVien <- data.frame(ThuTu,Luong,GioiTinh,TotNghiep,Tuoi)
+SinhVien
+
+#b. Đưa ra dữ liệu về những nhân viên nữ:
+nvNu <- subset(SinhVien, GioiTinh == "Nu")
+nvNu
+
+#c. Đưa ra dữ liệu về những nhân viên nam:
+nvNam <- subset(SinhVien, GioiTinh == "Nam")
+nvNam
+
+#d. Danh sách lương khởi điểm của nhân viên nữ
+luongNu <- nvNu$Luong
+luongNu
+
+#e. Đưa ra danh sách tuổi của nhóm nhân viên nam
+tuoiNam <- nvNam$Tuoi
+tuoiNam
+
+#f. Đưa ra danh sách những sinh viên có lương khởi điểm cao trên 6tr
+dsLuong6Tr <- subset(SinhVien, Luong > 6.0)
+dsLuong6Tr
+
+#g. Cho biết những thông tin về những người có lương cao nhất trong danh sách
+luong_cao_nhat <- max(SinhVien$Luong)
+nguoi_co_luong_cao_nhat <- subset(SinhVien, Luong == luong_cao_nhat)
+nguoi_co_luong_cao_nhat
+
+#h. Thêm vào danh sách một sinh viên nam tốt nghiệp xếp loại giỏi, lương khởi điểm 7.5 triệu nhưng không có thông tin về tuổi.
+sinhVienThem <- data.frame(ThuTu = max(SinhVien$ThuTu)+1, Luong=7.5, GioiTinh="Nam", TotNghiep="G",Tuoi = NA)
+SinhVien <- rbind(SinhVien, sinhVienThem)
+SinhVien
+
+#i. Thêm vào data frame trên một cột điểm khóa luận tốt nghiệp của các sinh viên
+DiemKhoaLuan <- c(8, 7.5, 7, 7, 9, 9.5, 8, 8, 9)
+SinhVien <- cbind(SinhVien, DiemKhoaLuan)
+SinhVien
+
+
+#j. Thang đo từng cột là :
+# Cột thứ tự thuộc thang đo định danh
+# Cột lương khởi điểm thuộc thang đo khoảng
+# Cột giới tính thuộc thang đo định danh
+# Cột tốt nghiệp thuộc thang đo thứ bậc 
+# Cột tuổi thuộc thang đo tỉ lệ 
+
+#k. Loại bỏ NA
+SinhVien_cleaned <- na.omit(SinhVien)
+SinhVien_cleaned
+```
+
+***Bài 7***
+```{r}
+#a. Tạo dãy số từ 1 đến 100.
+seq(1,100)
+
+#b. Tạo dãy số chẵn từ 0 đến 100.
+seq(0,100,2)
+
+#c. Tạo dãy số trong đó 3 lặp 4 lần, 5 lặp 10 lần, 16 lặp 7 lần.
+rep(c(3,5,16), times = c(4,10,7))
+
+#d. Tạo dãy số trong đó có các giá trị 1, 2, 3, 4 lần lượt lặp lại 10 lần.
+rep(c(1,2,3,4), each = 10)
+```

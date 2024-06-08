@@ -1,0 +1,144 @@
+---
+title: "Đề thi giữa kỳ II năm học 2022-2023"
+author: "Nguyễn Thị Phương Mai"
+date: "2023-11-08"
+output: html_document
+---
+
+**Bài 1.** Đọc ví dụ dưới đây và trả lời ngắn gọn các câu hỏi bên dưới:
+
+Để nghiên cứu sự tác động của mức độ tham gia các hoạt động văn hóa- giải trí đến sức khỏe tinh thần của người dân trong một thành phố, nhà nghiên cứu đã lấy mẫu ngẫu nhiên 500 người trưởng thành trong độ tuổi từ $18$ đến $60$. Các câu hỏi được đặt trong cuộc khảo sát bao gồm thông tin về mức độ tham gia các hoạt động văn hóa- giải trí, cũng như các chỉ số sức khỏe tinh thần như stress, lo âu và hạnh phúc. Thống kê trên số người dân trong thành phố đó ta thu được mẫu số liệu.
+
+a.  Tổng thể điều tra trong ví dụ trên là gì? (0.5 đ)
+
+Câu trả lời: tất cả người dân trên toàn thành phố
+
+b.  Tiêu thức thống kê trong ví dụ trên là gì? (0.5đ)
+
+Câu trả lời: nghiên cứu sự tác động của mức độ tham gia các hoạt động văn hóa- giải trí đến sức khỏe tinh thần của người dân trong một thành phố,
+
+c.  Dữ liệu trong ví dụ thuộc kiểu dữ liệu nào? (0.5đ)
+
+Câu trả lời: (định lượng or định tính (định dạng kiểu biến)) -\> Định tính
+
+d.  Xác định phương pháp chọn mẫu trong ví dụ trên? (0.5đ)
+
+Câu trả lời: phương pháp chọn mẫu ngẫu nhiên đơn giản (chọn mẫu xác suất loại nào ? trong chọn mẫu xác suất)
+
+**Bài 2.** Sử dụng phần mềm Rstudio thực hiện các yêu cầu sau:
+
+a.  Tạo một dãy a bằng cách lặp lại vector $b = c(3, 7, 1, 9, 6)$ $n$ lần, trong đó n là số cuối của mã sinh viên (nếu số cuối của mã sinh viên là $0$ thì mặc định $n = 1$). (1.0đ)
+
+```{r}
+x<-c(3,7,1,9,6)
+a=rep(c(3,7,1,9,6),times=2)
+a
+
+```
+
+b.  Cho hai vector $x = c(28, 128, 34, 82, 84, 66)$ và $y = c(50, 10, 17, 25, 3 , 153)$, hãy tìm ra số lượng các phần tử trong vector $x$ lớn hơn giá trị trung bình của vector $y$. (1.0đ)
+
+```{r}
+x = c(28, 128, 34, 82, 84, 66)
+y = c(50, 10, 17, 25, 3 , 153)
+tb<-mean(y)
+tb
+sum(x>mean(y))
+
+```
+
+**Bài 3.** Từ bộ dữ liệu **Cars93** trong **package MASS**, trong đó:
+
+-   Horsepower: mã lực
+
+-   Fuel.tank.capacity: Mức xăng tiêu thụ
+
+-   Airbags: Loại túi khí tiêu chuẩn
+
+-   Manufacturer: hãng sản suất
+
+-   Origin: Xuất xứ
+
+-   Type: Kiểu xe
+
+-   EngineSize: Loại động cơ
+
+-   Passengers: Số hành khách chở được
+
+-   Length: Chiều dài xe
+
+-   Model: Mẫu xe
+
+Sử dụng phần mềm Rstudio, thực hiện các yêu cầu sau:
+
+a.In ra màn hình số lượng xe có có mã lực lớn hơn $200$.(1.0 đ)
+
+```{r}
+install.packages("MASS")
+library(MASS)
+data=Cars93
+View(data)
+attach(data)
+nrow(data[data$Horsepower > 200,])
+print(paste("số lượng xe có mã lực lớn hơn 200 là",nrow(data[Horsepower > 200,])
+))
+
+```
+
+b.  Viết hàm so sánh mức xăng tiêu thụ trung bình của các loại xe sử dụng hai loại túi khí khác nhau.(1.0 đ)
+
+```{r}
+so_sanh=function(x,y){
+  mean1=mean(data[AirBags==x,]$Fuel.tank.capacity)
+  mean2=mean(data[AirBags==y,]$Fuel.tank.capacity)
+  mean1
+  mean2
+  if(mean1 > mean2){
+    print(paste("Mức độ tiêu thụ xăng trung bình của các loại xe sử dụng túi khí",x,"lớn hơn mức độ tiêu thụ xăng trung bình của các loại xe sử dụng túi khí",y))
+  }else if(mean1==mean2){
+    print(paste("Mức độ tiêu thụ xăng trung bình của các loại xe sử dụng túi khí",x,"bằng mức độ tiêu thụ xăng trung bình của các loại xe sử dụng túi khí",y))
+  }else{
+    print(paste("Mức độ tiêu thụ xăng trung bình của các loại xe sử dụng túi khí",x,"nhỏ hơn mức độ tiêu thụ xăng trung bình của các loại xe sử dụng túi khí",y))
+  }
+}
+so_sanh("None","Driver only")
+
+```
+
+c.  Hãy cho biết mẫu xe nào có chiều dài lớn nhất mà không thuộc kiểu xe Large.(1.0 đ)
+
+```{r}
+unique=unique(data[Type!="Large",]$Model)
+unique
+x=c()
+for (i in unique) {
+  y=data[Type!="Large"$Model == 5i,]$Length
+  x=c(x,y)
+}
+x
+for (i in unique) {
+  if(max(data[Type!="Large"$Model == i,]$Length)==max(x)){
+    print(paste("Mau xe",i,"co chieu dai lon nhat va khong thuoc kieu xe Large"))
+  }
+}
+
+```
+
+d.  Viết hàm cho biết hãng xe dùng túi khí và không xuất xứ từ Mỹ và chở được số hành khách lớn nhất và cho biết số hành khách lớn nhất đó là bao nhiêu? (1.0 đ)
+
+```{r}
+unique=unique(Manufacturer)
+function(x){
+  z=c()
+  for (i in x) {
+    data[AirBags != "None"&Origin == "non-USA"&Manufacturer==i,]$Passengers
+    z=c(x,y)
+  }
+  for (i in x) {
+    if(max(data[AirBags!= "None"&Origin=="non-USA"&Manufacturer==i,]$Passengers)==max(z)){
+      print(paste("hang xe",i,"dung tui khi va khong xuat xu tai my va cho dc so hanh khach lon nhat va so hanh khach lon nhat do la",max(z)))
+    }
+  }
+}
+
+```

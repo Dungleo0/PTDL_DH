@@ -1,0 +1,359 @@
+---
+title: "Đáp án đề thi giữa kỳ I năm học 2023-2024"
+author: "Nguyễn Thị Phương Mai"
+date: "2023-11-21"
+output: html_document
+---
+## ĐỀ THI GIỮA KỲ I NĂM HỌC 2023-2024
+
+#### Học phần: Nhập môn phân tích dữ liệu
+
+#### Thời gian thi: 60 phút
+
+***Đề 1.***
+
+***Lưu ý: $a$ là 2 chữ số cuối của mã sinh viên.***
+
+**Bài 1.** Đọc và trả lời ngắn gọn các câu hỏi bên dưới: Để điều tra ảnh hưởng của hoàn cảnh kinh tế gia đình tới kết quả học tập của học sinh tiểu học của trường A. Trường A có 1000 học sinh: khối một có 300 em, khối hai có 200 em, khối ba có 100 em, khối bốn có 200 em, khối năm có 200 em. Để điều tra người ta chọn ra 500 em như sau: người ta lấy ra ở khối một 150 em, khối hai 100 em, khối ba 50 em, khối bốn 100 em và khối năm 100 em.
+
+a.  Tổng thể điều tra trong bài trên là gì? (0.5 đ)
+
+Câu trả lời: Tất cả học sinh của trường A. 
+
+b.  Tiêu thức thống kê trong bài trên là gì? (0.5đ)
+
+Câu trả lời: Điều tra ảnh hưởng của hoàn cảnh kinh tế gia đình tới kết quả học tập của học sinh tiểu học của trường A. 
+
+c.  Dữ liệu trong bài trên thuộc kiểu dữ liệu nào? (0.5đ)
+
+Câu trả lời: Dữ liệu định tính. 
+
+d.  Xác định phương pháp chọn mẫu trong bài trên? (0.5đ)
+
+Câu trả lời: Phương pháp chọn mẫu phân tầng. 
+
+**Bài 2**. Sử dụng Rstudio thực hiện các câu hỏi sau:
+
+a.  Tung đồng xu $a$ lần. Mô phỏng phép thử và tìm số lần xuất hiện mặt ngửa. (0.5đ) 
+
+```{r}
+a=36
+#Mô phỏng phép thử
+set.seed(7)
+mo_phong=sample(c("S","N"),a,replace=T)
+mo_phong
+#Tìm số lần xuất hiện mặt ngửa
+sum=sum(mo_phong=="N")
+print(paste("Số lần xuất hiện mặt ngửa là",sum))
+```
+
+b.  Sinh ngẫu nhiên một bộ dữ liệu điểm tổng kết của $70$ sinh viên biết rằng điểm hơn kém nhau $0.5$ đơn vị. (0.5đ) 
+
+```{r}
+set.seed(7)
+diem_tong_ket=sample(seq(0,10,1),70,replace=T)
+diem_tong_ket
+```
+
+c. Phân loại dữ liệu điểm tổng kết của $70$ sinh viên như sau và ghép vào dữ liệu điểm ban đầu: (0.5đ) 
+
+    |  Điểm tổng kết               |  Phân loại                 |
+    |------------------------------|----------------------------|
+    | $$8<điểm\leq 10$$            |  A                         |
+    | $$6<điểm\leq 8$$             |  B                         |
+    | $$4<điểm\leq 6 $$            |  C                         |
+    | $$0\leq điểm\leq 4$$         |  D                         |
+
+```{r}
+set.seed(7)
+diem_tong_ket
+phan_loai=cut(diem_tong_ket,breaks=c(0,4,6,8,10),labels=c("D","C","B","A"),right=T)
+data=data.frame(diem_tong_ket,phan_loai)
+View(data)
+```
+
+**Bài 3**. Giả sử rằng, thời gian đi làm của một nhân viên trong vòng 2 tuần (10 ngày) được ghi lại như sau (đơn vị: phút):
+
+$$17 \quad 16 \quad 20\quad  24\quad  22\quad  15\quad  21\quad  15\quad  17\quad  22$$
+
+a. Nhập dữ liệu vào Rstudio và trả về kết quả các lệnh min, mean, max.(0.5đ) 
+```{r}
+times=c(17,16,20,24,22,15,21,15,17,22)
+min(times)
+mean(times)
+max(times)
+```
+
+b. Biết rằng giá trị $22$ bị lỗi, nó phải là $a$. Hãy đưa ra câu lệnh để sửa với Rstudio.(0.5đ)
+```{r}
+a=36
+#Sửa lại
+times[c(5,7)]=36
+times
+```
+
+c. Có bao nhiêu ngày bạn đi làm mất nhiều hơn $20$ phút. Tính tỉ lệ số ngày bạn đi làm mất ít hơn hoặc bằng $17$ phút.(0.5đ) 
+```{r}
+print(paste("Số ngày bạn đó đi làm mất nhiều hơn 20 phút là",sum(times>20)))
+print(paste("Tỉ lệ số ngày bạn đó đi làm mấy ít hơn hoặc bằng 17 phút là",sum(times<=17)/length(times)))
+```
+
+d. Giả sử nhân viên trên ghi chép thêm $5$ ngày như sau: 
+
+$$22,\quad 23,\quad 18, \quad25,\quad 20.$$ 
+Hãy ghép thêm những ghi chép trên vào dữ liệu ban đầu, sau đó tính giá trị trung bình mới và so sánh nó với giá trị trung bình cũ ở ý a (Sử câu lệnh để đưa ra màn hình, ví dụ: “Giá trị trung bình mới lớn hơn là giá trị trung bình cũ”).(0.5đ) 
+```{r}
+times1=c(22,23,16,25,20)
+times2=c(times,times1)
+mean1=mean(times)
+mean2=mean(times2)
+if(mean2>mean1){
+  print("Giá trị trung bình mới lớn hơn là giá trị trung bình cũ")
+}else if(mean1==mean2){
+   print("Giá trị trung bình mới bằng giá trị trung bình cũ")
+}else{
+   print("Giá trị trung bình mới nhỏ hơn là giá trị trung bình cũ")
+}
+```
+
+**Bài 4.** Trong dữ liệu ***data***: 
+
+Height: Chiều cao.
+
+Smoke: Mức độ hút thuốc.
+
+Sex: Giới tính.
+
+Age: Tuổi.
+
+W.Hnd: Tay thuận.
+
+Exer: Cường độ tập thể dục.
+
+Pulse: Nhịp tim.
+
+Sử dụng phần mềm Rstudio để thực hiện các yêu cầu sau:
+
+a. Nhập dữ liệu ***data*** vào Rstudio. (0.5đ)  
+```{r}
+data=read.csv("E:\\Teaching\\Introduction to data analysis\\Lectures 2023-2024\\Dữ liệu trong bài giảng\\data.csv",header=TRUE)
+View(data)
+attach(data)
+dim(data)
+```
+
+
+b. Đưa ra dữ liệu về chiều cao của những người không hút thuốc (Never). (1.0đ) 
+```{r}
+data[Smoke=="Never",]$Height
+```
+
+c. Cho biết chiều cao trung bình của nữ giới thuận tay phải (Right) và in ra màn hình "Chiều cao trung bình của của nữ giới thuận tay phải là ...". (1.0đ) 
+```{r}
+mean=mean(data[Sex=="Female"&W.Hnd=="Right",]$Height)
+print(paste("Chiều cao trung bình của của nữ giới thuận tay phải là",mean))
+```
+d. Viết hàm so sánh nhịp tim trung bình của những người có giới tính Nam (Male) với những người có giới tính Nữ (Female), biết họ có độ tuổi dưới 25 tuổi và có mức độ hút thuốc nặng (Heavy). (1.0đ) 
+```{r}
+so_sanh=function(x,y){
+  mean1=mean(data[Sex==x&Age<25&Smoke=="Heavy",]$Pulse)
+  mean2=mean(data[Sex==y&Age<25&Smoke=="Heavy",]$Pulse)
+  if(mean1>mean2){
+    print(paste("Nhịp tim trung bình của những người có giới tính",x,"lớn hơn những người có giới tính",y))
+  }else if(mean1==mean2){
+    print(paste("Nhịp tim trung bình của những người có giới tính",x,"bằng những người có giới tính",y))
+  }else{print(paste("Nhịp tim trung bình của những người có giới tính",x,"nhỏ hơn những người có giới tính",y))}
+}
+so_sanh("Male","Female")
+```
+e. Viết hàm cho biết cường độ tập thể dục của người ở độ tuổi dưới 30, không bao giờ hút thuốc (Never), có nhịp tim thấp nhất và cho biết nhịp tim đó bằng bao nhiêu.(1.0đ)
+```{r}
+unique=unique(Exer)
+unique
+cuong_do=function(x){
+  z=c()
+  for(i in x){
+    y=min(data[Exer==i&Smoke=="Never"&Age<30,]$Pulse)
+    z=c(z,y)
+  }
+  for (i in x){
+    if(min(data[Exer==i&Smoke=="Never"&Age<30,]$Pulse)==min(z)){
+      print(paste("Người có cường độ tập thể dục",i,"ở độ tuổi dưới 30, không bao giờ hút thuốc và có nhịp tim thấp nhất và nhịp tim đó là",min(z)))
+    }
+  }
+}
+cuong_do(unique)
+ 
+```
+
+
+### Đề 2 ###
+
+***Lưu ý: $a$ là 2 chữ số cuối của mã sinh viên.***
+
+**Bài 1.** Đọc và trả lời ngắn gọn các câu hỏi bên dưới: Để điều tra ảnh hưởng của hoàn cảnh kinh tế gia đình tới kết quả học tập của học sinh tiểu học của trường A. Trường A có 1000 học sinh: khối một có 300 em, khối hai có 200 em, khối ba có 100 em, khối bốn có 200 em, khối năm có 200 em. Để điều tra người ta chọn ra 500 em như sau: người ta lấy ra ở khối một 150 em, khối hai 100 em, khối ba 50 em, khối bốn 100 em và khối năm 100 em.
+
+a.  Tổng thể điều tra trong bài trên là gì? (0.5 đ)
+
+Câu trả lời: Tất cả học sinh của trường A.
+
+b.  Tiêu thức thống kê trong bài trên là gì? (0.5đ)
+
+Câu trả lời: Điều tra ảnh hưởng của hoàn cảnh kinh tế gia đình tới kết quả học tập của học sinh tiểu học của trường A.
+
+c.  Dữ liệu trong bài trên thuộc kiểu dữ liệu nào? (0.5đ)
+
+Câu trả lời: Dữ liệu định tính.
+
+d.  Xác định phương pháp chọn mẫu trong bài trên? (0.5đ)
+
+Câu trả lời: Phương pháp chọn mẫu phân tầng.
+
+
+**Bài 2**. Sử dụng Rstudio thực hiện các câu hỏi sau:
+
+a.  Tung đồng xu $a$ lần. Mô phỏng phép thử và tìm số lần xuất hiện mặt sấp. (0.5đ)
+
+```{r}
+a=36
+#Mô phỏng phép thử
+set.seed(7)
+mo_phong=sample(c("S","N"),a,replace=T)
+mo_phong
+#Tìm số lần xuất hiện mặt ngửa
+sum=sum(mo_phong=="S")
+print(paste("Số lần xuất hiện mặt ngửa là",sum))
+```
+
+b.  Sinh ngẫu nhiên một bộ dữ liệu điểm tổng kết của $50$ sinh viên biết rằng điểm hơn kém nhau $1$ đơn vị. (0.5đ)
+
+```{r}
+set.seed(7)
+diem_tong_ket=sample(seq(0,10,1),50,replace=T)
+diem_tong_ket
+```
+
+c. Phân loại dữ liệu điểm tổng kết của $50$ sinh viên như sau và ghép vào dữ liệu điểm ban đầu: (0.5đ)
+
+    |  Điểm tổng kết               |  Phân loại                 |
+    |------------------------------|----------------------------|
+    | $$8\leqđiểm\leq 10$$         |  A                         |
+    | $$6\leqđiểm< 8$$             |  B                         |
+    | $$4\leqđiểm< 6 $$            |  C                         |
+    | $$0\leq điểm< 4$$            |  D                         |
+
+```{r}
+set.seed(7)
+diem_tong_ket
+phan_loai=cut(diem_tong_ket,breaks=c(0,4,6,8,10),labels=c("D","C","B","A"),right=F)
+data=data.frame(diem_tong_ket,phan_loai)
+View(data)
+```
+
+**Bài 3**. Giả sử bạn theo dõi số tiền trong hóa đơn điện thoại hàng tháng theo thứ tự tháng $1$ đến tháng $12$ trong năm vừa qua như sau (đơn vị nghìn đồng).
+
+$$198\quad 185\quad 223\quad 221 \quad207\quad 203\quad 180\quad 195\quad222\quad\quad 177\quad 214 \quad216.$$
+a. Nhập dữ liệu vào Rstudio và cho biết tổng số tiền bạn phải trả cho phí điện thoại trong năm đó.(0.5đ)
+```{r}
+bill=c(198,185,223,221,207,203,180,195,222,177,214,216)
+print(paste("Tổng số tiền bạn phải trả cho phí điện thoại trong năm là",sum(bill)))
+```
+
+b. Cho biết những tháng bạn phải trả hơn 200 nghìn tiền điện thoại. Có bao nhiêu tháng như thế?(0.5đ)
+```{r}
+cat("Những tháng bạn phải trả hơn 200 nghìn tiền điện thoại là", which(bill>200),"\n")
+cat("Có",sum(bill>200),"tháng như thế")
+```
+
+c. Sửa tiền điện thoại tháng $2$ thành $a$. (0.5đ)
+```{r}
+a=36
+#Sửa lại
+bill[2]=a
+bill
+```
+
+d. Nhập thêm vào dãy trên tiền điện thoại của $3$ tháng tiếp theo nhưng bạn quên mất số tiền tháng thứ $13$, biết tháng thứ $14, 15$ số tiền lần lượt là $201, 185$. Sau đó tính lại số tiền trung bình bạn phải trả. (0.5đ)
+
+```{r}
+bill1=c(NA,201,185)
+bill2=c(bill,bill1)
+print(paste("Số tiền trung bình bạn đó phải trả là", round(mean(bill2,na.rm=T))))
+
+```
+
+**Bài 4.** Dữ liệu ***Credit*** trong package ***ISLR*** gồm 400 hàng và 12 biến trong đó:
+
+Age: Tuổi.
+
+Gender: Giới tính.
+
+Cards: Số lượng thẻ tín dụng người đó sở hữu.
+
+Income: Thu nhập.
+
+Married: Tình trạng hôn nhân.
+
+Ethnicity: Dân tộc.
+
+Education: Trình độ học vấn.
+
+Student: Hiện tại còn đi học hay không.
+
+Balance: Số dư tài khoản.
+
+Sử dụng phần mềm Rstudio, thực hiện các yêu cầu sau:
+
+a. Nhập dữ liệu ***Credit*** vào Rstudio và đặt tên là data. (0.5đ)
+```{r}
+install.packages("ISLR")
+library(ISLR)
+data=Credit
+View(data)
+attach(data)
+dim(data)
+```
+b. Đưa ra dữ liệu về thu nhập của người có giới tính Nữ (Female) và có tình trạng hôn nhân (No). (1.0 đ)
+```{r}
+Income=data[Gender=="Female"&Married=="No",]$Income
+Income
+```
+
+c. Tính số lượng khách hàng nữ có từ 3 thẻ tín dụng trở lên và in ra màn hình "Số lượng khách hàng nữ có từ 3 thẻ tín dụng trở lên là ...". (1.0 đ)
+```{r}
+x=nrow(data[Gender=="Female"&Cards>=3,])
+print(paste("Số lượng khách hàng nữ có từ 3 thẻ tín dụng trở lên là",x))
+```
+
+d. Viết hàm so sánh số dư tài khoản trung bình của những người có tình trạng hôn nhân (Yes) và tình trạng hôn nhân (No) biết họ thuộc dân tộc Asian và có trình độ học vấn trên 12 năm. (1.0 đ)
+```{r}
+so_sanh=function(x,y){
+  mean1=mean(data[Married==x&Ethnicity=="Asian"&Education>12,]$Balance)
+  mean2=mean(data[Married==y&Ethnicity=="Asian"&Education>12,]$Balance)
+  if(mean1>mean2){
+    print(paste("Số dư tài khoản trung bình của những người có tình trạng hôn nhân",x,"thuộc dân tộc Asian và có trình độ học vấn trên 12 năm lớn hơn số dư tài khoản trung bình của những người có tình trạng hôn nhân",y,"thuộc dân tộc Asian và có trình độ học vấn trên 12 năm"))
+  }else if(mean1==mean2){
+    print(paste("Số dư tài khoản trung bình của những người có tình trạng hôn nhân",x,"thuộc dân tộc Asian và có trình độ học vấn trên 12 năm bằng số dư tài khoản trung bình của những người có tình trạng hôn nhân",y,"thuộc dân tộc Asian và có trình độ học vấn trên 12 năm"))
+  }else{print(paste("Số dư tài khoản trung bình của những người có tình trạng hôn nhân",x,"thuộc dân tộc Asian và có trình độ học vấn trên 12 năm nhỏ hơn số dư tài khoản trung bình của những người có tình trạng hôn nhân",y,"thuộc dân tộc Asian và có trình độ học vấn trên 12 năm"))}
+}
+so_sanh("Yes","No")
+
+```
+e. Viết hàm cho biết người thuộc dân tộc nào không còn đi học, đã kết hôn và có số dư tài khoản nhiều nhất và cho biết tài khoản nhiều nhất đó là bao nhiêu.(1.0 đ)
+```{r}
+unique=unique(Ethnicity)
+unique
+dan_toc=function(x){
+  z=c()
+  for(i in x){
+    y=max(data[Ethnicity==i&Student=="No"&Married=="Yes",]$Balance)
+    z=c(z,y)
+  }
+  for(i in x){
+    if(max(data[Ethnicity==i&Student=="No"&Married=="Yes",]$Balance)==max(z)){
+      print(paste("Người thuộc dân tộc",i,"không còn đi học, đã kết hôn và có số dư tài khoản nhiều nhất và tài khoản nhiều nhất đó là",max(z)))
+    }
+  }
+}
+dan_toc(unique)
+```
